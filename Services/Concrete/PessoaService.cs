@@ -17,12 +17,19 @@ namespace Service.PessoaService
         public bool AddPerson(Pessoa pessoa)
         {
             return _pessoaRepository.AddPerson(pessoa);
+
         }
 
         public IEnumerable<Pessoa> GetAllPeople()
         {
             return _pessoaRepository.GetAllPeople();
+
         }
+        public Pessoa GetById(int id)
+        {
+            return _pessoaRepository.GetById(id);
+        }
+
     }
 
 }

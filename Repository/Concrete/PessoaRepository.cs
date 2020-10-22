@@ -35,6 +35,20 @@ namespace Repository.PessoaRepository
 
             return pessoas;
         }
+
+        public Pessoa GetById(int id)
+        {
+            Pessoa pessoa = _context.Pessoa
+              .Select(p => new Pessoa
+              {
+                  Id = p.Id,
+                  Nome = p.Nome,
+                  Sobrenome = p.Sobrenome
+              }).Where(p => p.Id == id)
+                .FirstOrDefault();
+
+            return pessoa;
+        }
     }
 
 }

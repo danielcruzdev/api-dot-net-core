@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Entity.Pessoa;
+using System.Collections.Generic;
 
 namespace Repository.PessoaRepository
 {
@@ -7,6 +7,7 @@ namespace Repository.PessoaRepository
     {
         bool AddPerson(Pessoa pessoa);
         IEnumerable<Pessoa> GetAllPeople();
+        Pessoa GetById(int id);
     }
 
 }

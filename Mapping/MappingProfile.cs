@@ -8,7 +8,8 @@ namespace api_dot_net_core.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Pessoa, PessoaViewModel>().ReverseMap();
+            CreateMap<Pessoa, PessoaViewModel>();
+            CreateMap<PessoaViewModel, Pessoa>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Entity.Pessoa;
 using Microsoft.AspNetCore.Mvc;
 using Service.PessoaService;
 using System.Collections.Generic;
@@ -26,6 +27,26 @@ namespace api_dot_net_core.Controllers
             var viewModel = _mapper.Map<IEnumerable<PessoaViewModel>>(pessoa);
 
             return Ok(viewModel);
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult GetById([FromRoute] int id)
+        {
+            var pessoa = _pessoaService.GetById(id);
+            var viewModel = _mapper.Map<PessoaViewModel>(pessoa);
+
+            return Ok(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] Pessoa pessoa)
+        {
+            var result = _pessoaService.AddPerson(pessoa);
+
+            if (result)
+                return Ok();
+            else
+                return BadRequest();
         }
     }
 }
