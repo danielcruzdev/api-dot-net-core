@@ -1,6 +1,9 @@
-public class Pessoa
+namespace Entity.Pessoa
 {
-    public int Id { get; set; }
-    public string Nome { get; set; }
-    public string Sobrenome { get; set; }
+    public class Pessoa
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+    }
 }

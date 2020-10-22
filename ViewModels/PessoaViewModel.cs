@@ -1,6 +1,9 @@
-public class Pessoa
+namespace ViewModel.Pessoa
 {
-    public int Id { get; set; }
-    public string Nome { get; set; }
-    public string Sobrenome { get; set; }
+    public class PessoaViewModel
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+    }
 }

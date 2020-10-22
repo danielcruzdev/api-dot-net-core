@@ -1,13 +1,13 @@
+using Entity.Pessoa;
+using Repository.PessoaRepository;
 using System;
 using System.Collections.Generic;
-using Repository.PessoaRepository;
 
 namespace Service.PessoaService
 {
     public class PessoaService : IPessoaService
     {
-        private IList<Pessoa> _people;
-        private IPessoaRepository _pessoaRepository;
+        private readonly IPessoaRepository _pessoaRepository;
 
         public PessoaService(IPessoaRepository pessoaRepository)
         {

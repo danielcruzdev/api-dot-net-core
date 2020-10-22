@@ -1,20 +1,24 @@
+using api_dot_net_core.Models;
+using Entity.Pessoa;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Repository.PessoaRepository
 {
     public class PessoaRepository : IPessoaRepository
     {
-        private IList<Pessoa> _people;
-        public PessoaRepository()
+        private readonly CoreDbContext _context;
+        public PessoaRepository(CoreDbContext context)
         {
-            _people = new List<Pessoa>();
+            _context = context;
         }
 
         public bool AddPerson(Pessoa pessoa)
         {
             if (pessoa != null)
             {
-                _people.Add(pessoa);
+                _context.Pessoa.Add(pessoa);
+                _context.SaveChanges();
                 return true;
             }
             return false;
@@ -22,7 +26,14 @@ namespace Repository.PessoaRepository
 
         public IEnumerable<Pessoa> GetAllPeople()
         {
-            return _people;
+            IEnumerable<Pessoa> pessoas = _context.Pessoa.Select(p => new Pessoa
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Sobrenome = p.Sobrenome
+            }).ToList();
+
+            return pessoas;
         }
     }
 
