@@ -14,6 +14,7 @@ namespace Service.PessoaService
         {
             _pessoaRepository = pessoaRepository ?? throw new ArgumentNullException(nameof(pessoaRepository));
         }
+
         public async Task<IEnumerable<Pessoa>> GetAllAsync()
         {
             return await _pessoaRepository.GetAllAsync();
@@ -22,17 +23,14 @@ namespace Service.PessoaService
         {
             return await _pessoaRepository.GetByIdAsync(id);
         }
-
         public async Task<bool> CreateAsync(Pessoa pessoa)
         {
             return await _pessoaRepository.CreateAsync(pessoa);
         }
-
         public async Task<bool> UpdateAsync(Pessoa pessoa)
         {
             return await _pessoaRepository.UpdateAsync(pessoa);
         }
-
         public async Task<bool> DeleteAsync(int id)
         {
             return await _pessoaRepository.DeleteAsync(id);

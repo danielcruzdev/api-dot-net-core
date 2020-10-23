@@ -15,7 +15,6 @@ namespace api_dot_net_core.Models
         {
 
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -23,12 +22,10 @@ namespace api_dot_net_core.Models
                 optionsBuilder.UseSqlServer("Server=FINLANDIA;Database=API_TESTE;Initial Catalog=API_TESTE; Integrated Security=True;Trusted_Connection=True;");
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             OnModelCreatingPartial(modelBuilder);
         }
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
