@@ -9,11 +9,11 @@ namespace ViewModel
         public string Sobrenome { get; set; }
 
 
-        public string ConvertModelToJSON()
+        public string ConvertModelToJSON(int? id)
         {
             var jsonObj = new
             {
-                Id,
+                Id = id,
                 Nome,
                 Sobrenome
             };

@@ -1,7 +1,6 @@
 using Dapper;
 using Entity;
 using Helpers;
-using Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace Repository
 {
     public class PessoaRepository : BaseDapper, IPessoaRepository
     {
-        private readonly CoreDbContext _context;
         public PessoaRepository() : base()
         {
         }
@@ -50,18 +48,18 @@ namespace Repository
             var id = parameters.Get<int>("@Id");
             return id;
         }
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int? id)
         {
-            if (id != null)
+            if (id == null)
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@Id", id, DbType.Int32);
-
-                await ExecuteSPAsync("spdPessoa", parameters);
-
-                return true;
+                return false;
             }
-            return false;
+            var parameters = new DynamicParameters();
+            parameters.Add("@Id", id, DbType.Int32);
+
+            await ExecuteSPAsync("spdPessoa", parameters);
+
+            return true;
         }
 
     }

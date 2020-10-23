@@ -31,7 +31,7 @@ namespace Service
         {
             return await _pessoaRepository.UpdateAsync(parametrosJson);
         }
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int? id)
         {
             return await _pessoaRepository.DeleteAsync(id);
         }

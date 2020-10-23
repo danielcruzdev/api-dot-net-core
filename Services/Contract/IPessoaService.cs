@@ -10,7 +10,7 @@ namespace Service
         Task<Pessoa> GetByIdAsync(int id);
         Task<int> CreateAsync(string parametrosJson);
         Task<int> UpdateAsync(string parametrosJson);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(int? id);
     }
 
 }
