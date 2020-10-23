@@ -8,7 +8,6 @@ namespace ViewModel
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
 
-
         public string ConvertModelToJSON(int? id)
         {
             var jsonObj = new

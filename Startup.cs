@@ -1,12 +1,11 @@
 using AutoMapper;
+using DependencyInjection;
 using Helpers;
 using Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Repository;
-using Service;
 
 namespace api_dot_net_core
 {
@@ -22,12 +21,6 @@ namespace api_dot_net_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region DEPENDENCY INJECTION
-
-            services.AddScoped<IPessoaRepository, PessoaRepository>();
-            services.AddScoped<IPessoaService, PessoaService>();
-
-            #endregion
 
             #region AUTO MAPPER
 
@@ -46,6 +39,12 @@ namespace api_dot_net_core
             {
                 x.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "api-dot-net-core", Version = "v1" });
             });
+            #endregion
+
+            #region DEPENDENCY INJECTION
+
+            services.ResolveDependencies();
+
             #endregion
 
             services.AddConfiguration<SettingsApplication>(Configuration, "SettingsApplication");

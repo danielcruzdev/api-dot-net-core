@@ -35,8 +35,7 @@ namespace Repository
 
 
             await ExecuteSPAsync("spiPessoa", parameters);
-            var id = parameters.Get<int>("@Id");
-            return id;
+            return parameters.Get<int>("@Id");
         }
         public async Task<int> UpdateAsync(string parametrosJson)
         {
@@ -45,8 +44,7 @@ namespace Repository
             parameters.Add("@Id", null, DbType.Int32, ParameterDirection.Output);
 
             await ExecuteSPAsync("spuPessoa", parameters);
-            var id = parameters.Get<int>("@Id");
-            return id;
+            return parameters.Get<int>("@Id");
         }
         public async Task<bool> DeleteAsync(int? id)
         {
