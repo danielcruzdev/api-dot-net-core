@@ -1,15 +1,16 @@
 using Entity.Pessoa;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Service.PessoaService
 {
     public interface IPessoaService
     {
-        IEnumerable<Pessoa> GetAll();
-        Pessoa GetById(int id);
-        bool Create(Pessoa pessoa);
-        bool Update(Pessoa pessoa);
-        bool Delete(int id);
+        Task<IEnumerable<Pessoa>> GetAllAsync();
+        Task<Pessoa> GetByIdAsync(int id);
+        Task<bool> CreateAsync(Pessoa pessoa);
+        Task<bool> UpdateAsync(Pessoa pessoa);
+        Task<bool> DeleteAsync(int id);
     }
 
 }

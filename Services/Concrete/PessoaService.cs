@@ -2,6 +2,7 @@ using Entity.Pessoa;
 using Repository.PessoaRepository;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Service.PessoaService
 {
@@ -13,32 +14,28 @@ namespace Service.PessoaService
         {
             _pessoaRepository = pessoaRepository ?? throw new ArgumentNullException(nameof(pessoaRepository));
         }
-        public IEnumerable<Pessoa> GetAll()
+        public async Task<IEnumerable<Pessoa>> GetAllAsync()
         {
-            return _pessoaRepository.GetAll();
-
+            return await _pessoaRepository.GetAllAsync();
         }
-        public Pessoa GetById(int id)
+        public async Task<Pessoa> GetByIdAsync(int id)
         {
-            return _pessoaRepository.GetById(id);
-        }
-
-        public bool Create(Pessoa pessoa)
-        {
-            return _pessoaRepository.Create(pessoa);
-
+            return await _pessoaRepository.GetByIdAsync(id);
         }
 
-        public bool Update(Pessoa pessoa)
+        public async Task<bool> CreateAsync(Pessoa pessoa)
         {
-            return _pessoaRepository.Update(pessoa);
-
+            return await _pessoaRepository.CreateAsync(pessoa);
         }
 
-        public bool Delete(int id)
+        public async Task<bool> UpdateAsync(Pessoa pessoa)
         {
-            return _pessoaRepository.Delete(id);
+            return await _pessoaRepository.UpdateAsync(pessoa);
+        }
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            return await _pessoaRepository.DeleteAsync(id);
         }
     }
 

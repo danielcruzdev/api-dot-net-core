@@ -1,7 +1,9 @@
 using api_dot_net_core.Models;
 using Entity.Pessoa;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Repository.PessoaRepository
 {
@@ -13,53 +15,50 @@ namespace Repository.PessoaRepository
             _context = context;
         }
 
-        public IEnumerable<Pessoa> GetAll()
+        public async Task<IEnumerable<Pessoa>> GetAllAsync()
         {
-            IEnumerable<Pessoa> pessoas = _context.Pessoa.Select(p => new Pessoa
+            IEnumerable<Pessoa> pessoas = await _context.Pessoa.Select(p => new Pessoa
             {
                 Id = p.Id,
                 Nome = p.Nome,
                 Sobrenome = p.Sobrenome
-            }).ToList();
+            }).ToListAsync();
 
             return pessoas;
         }
-        public Pessoa GetById(int id)
+        public async Task<Pessoa> GetByIdAsync(int id)
         {
-            Pessoa pessoa = _context.Pessoa
+            Pessoa pessoa = await _context.Pessoa
               .Select(p => new Pessoa
               {
                   Id = p.Id,
                   Nome = p.Nome,
                   Sobrenome = p.Sobrenome
               }).Where(p => p.Id == id)
-                .FirstOrDefault();
-
+                .FirstOrDefaultAsync();
             return pessoa;
         }
-
-        public bool Create(Pessoa pessoa)
+        public async Task<bool> CreateAsync(Pessoa pessoa)
         {
             if (pessoa != null)
             {
                 _context.Pessoa.Add(pessoa);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
-        public bool Update(Pessoa pessoa)
+        public async Task<bool> UpdateAsync(Pessoa pessoa)
         {
             if (pessoa != null)
             {
                 _context.Pessoa.Update(pessoa);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
-
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             if (id != null)
             {
@@ -73,7 +72,7 @@ namespace Repository.PessoaRepository
                   .FirstOrDefault();
 
                 _context.Pessoa.Remove(pessoa);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             return false;
