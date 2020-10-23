@@ -1,4 +1,5 @@
 using AutoMapper;
+using Helpers;
 using Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -47,8 +48,9 @@ namespace api_dot_net_core
             });
             #endregion
 
-            services.AddControllers();
+            services.AddConfiguration<SettingsApplication>(Configuration, "SettingsApplication");
 
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

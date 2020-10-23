@@ -10,7 +10,7 @@ namespace Repository
 {
     public class PessoaRepository : BaseDapper, IPessoaRepository
     {
-        public PessoaRepository() : base()
+        public PessoaRepository(SettingsApplication configuration) : base(configuration)
         {
         }
 

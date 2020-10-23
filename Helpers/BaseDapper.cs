@@ -11,16 +11,17 @@ namespace Helpers
 {
     public class BaseDapper : IDisposable
     {
-        private readonly string connectionString = "Server=FINLANDIA;Database=API_TESTE;Initial Catalog=API_TESTE; Integrated Security=True;Trusted_Connection=True;";
-        public BaseDapper()
-        {
+        protected readonly SettingsApplication _configuration;
 
+        public BaseDapper(SettingsApplication configuration)
+        {
+            _configuration = configuration;
         }
 
         public void ExecuteSP(string procedureName, DynamicParameters parameters = null)
         {
             using TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required);
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(_configuration.ConnectionString))
             {
                 sqlConnection.Open();
 
@@ -39,7 +40,7 @@ namespace Helpers
 
             using (var transactionScope = new TransactionScope(TransactionScopeOption.Required))
             {
-                using (var sqlConnection = new SqlConnection(connectionString))
+                using (var sqlConnection = new SqlConnection(_configuration.ConnectionString))
                 {
                     sqlConnection.Open();
 
@@ -58,7 +59,7 @@ namespace Helpers
         public async Task ExecuteSPAsync(string procedureName, DynamicParameters parameters = null)
         {
             using var tran = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled);
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(_configuration.ConnectionString);
             await connection.OpenAsync();
 
             if (parameters == null)
@@ -74,7 +75,7 @@ namespace Helpers
             List<T> ret;
 
             using var tran = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled);
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_configuration.ConnectionString))
             {
                 await connection.OpenAsync();
 
@@ -103,7 +104,7 @@ namespace Helpers
         {
             DataTable table = new DataTable();
 
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(_configuration.ConnectionString))
             {
                 sqlConnection.Open();
                 table.Load(sqlConnection.ExecuteReader(procedureName, parameters, commandType: CommandType.StoredProcedure));
