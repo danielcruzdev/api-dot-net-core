@@ -13,16 +13,9 @@ namespace Service.PessoaService
         {
             _pessoaRepository = pessoaRepository ?? throw new ArgumentNullException(nameof(pessoaRepository));
         }
-
-        public bool AddPerson(Pessoa pessoa)
+        public IEnumerable<Pessoa> GetAll()
         {
-            return _pessoaRepository.AddPerson(pessoa);
-
-        }
-
-        public IEnumerable<Pessoa> GetAllPeople()
-        {
-            return _pessoaRepository.GetAllPeople();
+            return _pessoaRepository.GetAll();
 
         }
         public Pessoa GetById(int id)
@@ -30,6 +23,23 @@ namespace Service.PessoaService
             return _pessoaRepository.GetById(id);
         }
 
+        public bool Create(Pessoa pessoa)
+        {
+            return _pessoaRepository.Create(pessoa);
+
+        }
+
+        public bool Update(Pessoa pessoa)
+        {
+            return _pessoaRepository.Update(pessoa);
+
+        }
+
+        public bool Delete(int id)
+        {
+            return _pessoaRepository.Delete(id);
+
+        }
     }
 
 }

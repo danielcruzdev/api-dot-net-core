@@ -21,16 +21,16 @@ namespace api_dot_net_core.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult ListAll()
         {
-            var pessoa = _pessoaService.GetAllPeople();
+            var pessoa = _pessoaService.GetAll();
             var viewModel = _mapper.Map<IEnumerable<PessoaViewModel>>(pessoa);
 
             return Ok(viewModel);
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetById([FromRoute] int id)
+        public IActionResult ListById([FromRoute] int id)
         {
             var pessoa = _pessoaService.GetById(id);
             var viewModel = _mapper.Map<PessoaViewModel>(pessoa);
@@ -41,7 +41,29 @@ namespace api_dot_net_core.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] Pessoa pessoa)
         {
-            var result = _pessoaService.AddPerson(pessoa);
+            var result = _pessoaService.Create(pessoa);
+
+            if (result)
+                return Ok();
+            else
+                return BadRequest();
+        }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] Pessoa pessoa)
+        {
+            var result = _pessoaService.Update(pessoa);
+
+            if (result)
+                return Ok();
+            else
+                return BadRequest();
+        }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var result = _pessoaService.Delete(id);
 
             if (result)
                 return Ok();
