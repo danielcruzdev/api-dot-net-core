@@ -1,10 +1,10 @@
-using Entity.Pessoa;
-using Repository.PessoaRepository;
+using Entity;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Service.PessoaService
+namespace Service
 {
     public class PessoaService : IPessoaService
     {
@@ -23,13 +23,13 @@ namespace Service.PessoaService
         {
             return await _pessoaRepository.GetByIdAsync(id);
         }
-        public async Task<bool> CreateAsync(Pessoa pessoa)
+        public async Task<int> CreateAsync(string parametrosJson)
         {
-            return await _pessoaRepository.CreateAsync(pessoa);
+            return await _pessoaRepository.CreateAsync(parametrosJson);
         }
-        public async Task<bool> UpdateAsync(Pessoa pessoa)
+        public async Task<int> UpdateAsync(string parametrosJson)
         {
-            return await _pessoaRepository.UpdateAsync(pessoa);
+            return await _pessoaRepository.UpdateAsync(parametrosJson);
         }
         public async Task<bool> DeleteAsync(int id)
         {

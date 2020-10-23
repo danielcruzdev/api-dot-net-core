@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Entity.Pessoa;
 using Microsoft.AspNetCore.Mvc;
-using Service.PessoaService;
+using Service;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ViewModel.Pessoa;
+using ViewModel;
 
 namespace api_dot_net_core.Controllers
 {
@@ -40,25 +39,21 @@ namespace api_dot_net_core.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] Pessoa pessoa)
+        public async Task<IActionResult> CreateAsync([FromBody] PessoaViewModel pessoa)
         {
-            var result = await _pessoaService.CreateAsync(pessoa);
+            var parametrosJson = pessoa.ConvertModelToJSON();
+            await _pessoaService.CreateAsync(parametrosJson);
 
-            if (result)
-                return Ok();
-            else
-                return BadRequest();
+            return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] Pessoa pessoa)
+        public async Task<IActionResult> UpdateAsync([FromBody] PessoaViewModel pessoa)
         {
-            var result = await _pessoaService.UpdateAsync(pessoa);
+            var parametrosJson = pessoa.ConvertModelToJSON();
+            await _pessoaService.UpdateAsync(parametrosJson);
 
-            if (result)
-                return Ok();
-            else
-                return BadRequest();
+            return Ok();
         }
 
         [HttpDelete("{id:int}")]

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Entity.Pessoa;
-using ViewModel.Pessoa;
+using Entity;
+using ViewModel;
 
-namespace api_dot_net_core.Mapping
+namespace Mapping
 {
     public class MappingProfile : Profile
     {

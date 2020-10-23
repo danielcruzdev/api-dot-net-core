@@ -1,7 +1,7 @@
-﻿using Entity.Pessoa;
+﻿using Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace api_dot_net_core.Models
+namespace Models
 {
     public partial class CoreDbContext : DbContext
     {

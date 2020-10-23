@@ -1,4 +1,4 @@
-namespace Entity.Pessoa
+namespace Entity
 {
     public class Pessoa
     {
