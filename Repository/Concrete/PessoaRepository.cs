@@ -18,6 +18,10 @@ namespace Repository
         {
             return await QueryAsync<Pessoa>("spsPessoas");
         }
+        public async Task<IEnumerable<Pessoa>> GetAllActiveAsync()
+        {
+            return await QueryAsync<Pessoa>("spsPessoasAtivas");
+        }
         public async Task<Pessoa> GetByIdAsync(int id)
         {
             var parameters = new DynamicParameters();
@@ -59,7 +63,6 @@ namespace Repository
 
             return true;
         }
-
     }
 
 }

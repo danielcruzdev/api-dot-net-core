@@ -35,6 +35,11 @@ namespace Service
         {
             return await _pessoaRepository.DeleteAsync(id);
         }
+
+        public async Task<IEnumerable<Pessoa>> GetAllActiveAsync()
+        {
+            return await _pessoaRepository.GetAllActiveAsync();
+        }
     }
 
 }

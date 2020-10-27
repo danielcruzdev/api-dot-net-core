@@ -32,6 +32,17 @@ namespace api_dot_net_core.Controllers
             return Ok(viewModel);
         }
 
+        [HttpGet("ativo")]
+        [ProducesResponseType(typeof(IEnumerable<PessoaViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ListAllActiveAsync()
+        {
+            var pessoa = await _pessoaService.GetAllActiveAsync();
+            var viewModel = _mapper.Map<IEnumerable<PessoaViewModel>>(pessoa);
+
+            return Ok(viewModel);
+        }
+
         [HttpGet("{id:int}", Name = nameof(ListByIdAsync))]
         [ProducesResponseType(typeof(PessoaViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
