@@ -1,5 +1,6 @@
 ﻿using api_dot_net_core.Services.Contract;
 using api_dot_net_core.ViewModels.RCompras;
+using api_dot_net_core.ViewModels.RCompras.Demonstracao;
 using api_dot_net_core.ViewModels.RCompras.Parametros;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,19 @@ namespace api_dot_net_core.Controllers
 
             var relatorio = await _rComprasService.ReportData(tabParametros);
             var viewModel = _mapper.Map<RCompraViewModel>(relatorio);
+
+            return Ok(viewModel);
+        }
+
+        [HttpGet("Wrong")]
+        [ProducesResponseType(typeof(RCompraGeralDemonstracaoViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ReportWrongData([FromQuery] ParametrosRelatorio parametros)
+        {
+            var tabParametros = parametros.ConvertModelToJson();
+
+            var relatorio = await _rComprasService.ReportWrongData(tabParametros);
+            var viewModel = _mapper.Map<RCompraGeralDemonstracaoViewModel>(relatorio);
 
             return Ok(viewModel);
         }

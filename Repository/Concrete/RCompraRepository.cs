@@ -1,4 +1,5 @@
 ﻿using api_dot_net_core.Entities.RCompras;
+using api_dot_net_core.Entities.RCompras.Demonstracao;
 using api_dot_net_core.Repository.Contract;
 using Dapper;
 using Helpers;
@@ -75,9 +76,9 @@ namespace api_dot_net_core.Repository.Concrete
                                     reportEmpresa.Categorias.Add(reportCategoria);
                                 }
 
-                                var produtoKey = (reportCliente.ClienteId, 
-                                                  reportEmpresa.EmpresaId, 
-                                                  reportCategoria.CategoriaId, 
+                                var produtoKey = (reportCliente.ClienteId,
+                                                  reportEmpresa.EmpresaId,
+                                                  reportCategoria.CategoriaId,
                                                   produto.ProdutoId);
 
                                 if (!produtoDictionary.TryGetValue(produtoKey, out RCompraProduto reportProduto))
@@ -93,6 +94,47 @@ namespace api_dot_net_core.Repository.Concrete
 
 
                             reportData.Clientes = clienteDictionary.Values.ToList();
+                            reportData.Cabecalho = cabecalho;
+                        }
+                        catch (System.InvalidOperationException)
+                        {
+                            // Não fazer nada, pois sabemos que esta Exception é gerada por causa que a 
+                            // Stored Procedure não retorna nenhum valor
+                        }
+                    }
+                }
+
+                transactionScope.Complete();
+            }
+
+            return reportData;
+        }
+
+        public async Task<RCompraGeralDemonstracao> ReportWrongData(string tabParametros)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@TabParametrosJSON", tabParametros, DbType.String);
+
+            var reportData = new RCompraGeralDemonstracao();
+
+
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
+            {
+                using (var sqlConnection = new SqlConnection(_connectionString))
+                {
+                    await sqlConnection.OpenAsync();
+
+                    using (var resultSets = await sqlConnection.QueryMultipleAsync("sprCompras", parameters, commandType: CommandType.StoredProcedure))
+                    {
+                        var cabecalho = new RCompraCabecalho();
+                        var compras = new List<RComprasDemonstracao>();
+
+                        try
+                        {
+                            cabecalho = resultSets.Read<RCompraCabecalho>().FirstOrDefault();
+                            compras = resultSets.Read<RComprasDemonstracao>().ToList();
+
+                            reportData.Compras = compras;
                             reportData.Cabecalho = cabecalho;
                         }
                         catch (System.InvalidOperationException)
