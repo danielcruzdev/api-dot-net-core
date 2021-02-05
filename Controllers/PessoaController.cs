@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Service;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,11 +15,19 @@ namespace api_dot_net_core.Controllers
     {
         private readonly IPessoaService _pessoaService;
         private readonly IMapper _mapper;
+        private readonly string[] _languageResources;
 
-        public PessoaController(IMapper mapper, IPessoaService pessoaService)
+        public PessoaController(IMapper mapper,
+            IPessoaService pessoaService,
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _mapper = mapper;
             _pessoaService = pessoaService;
+
+            _languageResources = new string[1]
+            {
+                "Teste"
+            };
         }
 
         [HttpGet]

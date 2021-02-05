@@ -1,6 +1,7 @@
 ﻿using api_dot_net_core.Entities.BaseExcel;
 using api_dot_net_core.Entities.RCompras;
 using api_dot_net_core.Entities.RCompras.Demonstracao;
+using api_dot_net_core.Entities.Shared;
 using api_dot_net_core.ViewModels.RCompras;
 using api_dot_net_core.ViewModels.RCompras.Demonstracao;
 using api_dot_net_core.ViewModels.Shared;
@@ -16,6 +17,9 @@ namespace Mapping
         {
             //Base Excel Cabeçalho
             CreateMap<BaseCabecalho, BaseExcelHeader>();
+
+            //Shared
+            CreateMap<Midia, MidiaContentViewModel>();
 
             //Pessoa
             CreateMap<Pessoa, PessoaViewModel>();
